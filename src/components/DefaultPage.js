@@ -3,13 +3,18 @@ import { useNavigate } from "react-router-dom";
 
 function DefaultPage() {
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
   return (
     <div>
-      <h1>Page Not Found</h1>
-      <p>Sorry, the page you're looking for doesn't exist.</p>
-      <h5>Please login first</h5>
-      <button onClick={() => navigate("/login")}>Login</button>
+      {token ? <h1>You are logged in</h1> : <h1>Page Not Found</h1>}
+
+      
+      {token ? (
+        <button onClick={() => navigate("/employees-list")}>Dashboard</button>
+      ) : (
+        <button onClick={() => navigate("/login")}>Login</button>
+      )}
     </div>
   );
 }
