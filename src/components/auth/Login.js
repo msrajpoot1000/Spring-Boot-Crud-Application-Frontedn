@@ -21,10 +21,11 @@ const Login = () => {
     try {
       await loginUser(formData.username, formData.password);
       alert("Login successful!");
+       navigate("/employees-list");
       window.location.reload();
-      // navigate("/");
+     
     } catch (err) {
-      setError(err.message);
+      setError("something went wrong! please try again");
     }
   };
 

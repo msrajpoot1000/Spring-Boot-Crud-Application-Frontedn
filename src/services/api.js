@@ -128,25 +128,29 @@ export const deleteEmployee = async (id) => {
   }
 };
 
+
+
 export const registerUser = async (userData) => {
   try {
-    const response = await axios.post(
-      "http://localhost:9090/auth/register",
-      userData,
-      { headers: { "Content-Type": "application/json" } }
-    );
+    const response = await axios.post(`${API_URL}/auth/register`, userData, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-    // ✅ Log entire response
-    // ✅ Ensure returning `data`, not `response`
-    return { success: true, data: response.data };
+    console.log("Registration Response:", response.data);
+
+     return { success: true, message: response.data };
   } catch (error) {
     console.error(
-      "Error registering user:",
+      "Registration Error:",
       error.response ? error.response.data : error.message
     );
-    return { success: false, message: "Registration failed" }; // ✅ Return a default error response
+
+    throw new Error(error.response?.data?.message || "Registration failed!");
   }
 };
+
 
 export const loginUser = async (username, password) => {
   try {

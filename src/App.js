@@ -5,6 +5,7 @@ import EmployeeCreate from "./components/EmployeeCreate";
 import EmployeeEdit from "./components/EmployeeEdit";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
+import DefaultPage from "./components/DefaultPage";
 
 const App = () => {
   const token = localStorage.getItem("token");
@@ -14,20 +15,21 @@ const App = () => {
       <Routes>
         {token ? (
           <>
-            <Route path="/" element={<EmployeeList />} />
+            <Route path="/employees-list" element={<EmployeeList />} />
             <Route path="/create" element={<EmployeeCreate />} />
             <Route path="/edit/:id" element={<EmployeeEdit />} />
-            <Route path="*" element={<Login />} />{" "}
+
             {/* Redirect unknown routes to home */}
           </>
         ) : (
           <>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="*" element={<Login />} />{" "}
+
             {/* Redirect unauthorized users to login */}
           </>
         )}
+        <Route path="*" element={<DefaultPage />} />{" "}
       </Routes>
     </Router>
   );
